@@ -37,6 +37,8 @@ python3 -m http.server 8080
 
 ## 待办（发布前）
 
+> 逐步操作与**放行硬闸**见同目录《`上线清单_daybooksuite.com.md`》（执行页）。
+
 - [ ] `index.html` / `zh.html` 的 `Buy` 按钮：Paddle 审核通过后，换成真实 Checkout 链接（现为占位 `#buy`）
 - [ ] **Paddle 后台设 `successUrl`** = `https://daybooksuite.com/thank-you.html?checkout={checkout_id}`（或 Checkout settings 里的 post-checkout 跳转）；不设则停在 Paddle 自带成功页
 - [ ] Paddle 商品交付方式选 **Download**（发含下载链接的邮件），零后端
