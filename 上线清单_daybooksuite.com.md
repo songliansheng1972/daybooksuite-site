@@ -83,9 +83,11 @@ cd ~/Desktop/daybooksuite-site && grep -n "checkout" thank-you.html
 
 ---
 
-## 六 · 定价改动口径（防漏一处）
+## 六 · 定价改动口径（共 18 处同源 · 防漏）
 
-只要动价，**四处同改**：`index.html`、`zh.html`、`terms.html` §4、`refund.html` §1。
+现价 **US$10.99 一次性**（≥ $10，适配 Paddle 自助费率；$9.9／$1 均低于 Paddle 下限、须另谈）。动价时**官网 8 处**同改：
+`index.html`×2（价格牌＋按钮）｜`zh.html`×2｜`terms.html` §4｜`refund.html` §1｜`thank-you.html`×2。
+另**源码仓 10 处**：根 `README.md` 中英×2 ＋ `src/LICENSING.md`×2 → 改源后重打包同步三包 LICENSING。
 
 ---
 
