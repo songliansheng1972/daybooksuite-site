@@ -91,7 +91,20 @@
 |---|---|---|
 | 商品价格 | **US$10.99 一次性** | 官网 8 处同源（`index`×2／`zh`×2／`terms`§4／`refund`§1／`thank-you`×2） |
 | 交付方式 | **Download** | 发含下载链接的邮件，零后端 |
-| `successUrl` | `https://daybooksuite.com/thank-you.html?checkout={checkout_id}` | 不设则停在 Paddle 自带成功页 |
+| `successUrl` | `https://daybooksuite.com/thank-you?checkout={checkout_id}` | 不设则停在 Paddle 自带成功页 |
+
+**`successUrl` 设在哪（2026-10-12 亲核 Paddle 文档）**：Paddle Billing **后台并没有 successUrl 字段**，它是在打开结账时由**代码**传入：
+
+```js
+Paddle.Checkout.open({
+  items: [{ priceId: 'pri_xxx', quantity: 1 }],
+  settings: { successUrl: 'https://daybooksuite.com/thank-you?checkout={checkout_id}' }
+});
+```
+
+省略则回退到后台 **Checkout › Checkout Settings › Default payment link**（沙盒：`sandbox-vendors.paddle.com/checkout-settings`；正式：`vendors.paddle.com/checkout-settings`）——但那是**收款落地页**（要含 Paddle.js），不是感谢页，语义不对 ⇒ **必须显式传 `successUrl`**。占位符 `{checkout_id}` 正好匹配 `thank-you.html` 读取的 `?checkout=` 参数，无需改页面。
+
+**路径口径（2026-10-12 统一 · 全站已改）**：CF Pages 默认把 `*.html` **308 去后缀**（`/terms.html` → `/terms`），故站内链接与 `successUrl` **一律用无后缀形式**（`/thank-you`，不是 `/thank-you.html`），否则每点一次导航都白吃一跳 308。已改 6 个页面共 51 处，`grep -rn 'href="[^"]*\.html"' *.html` 应**无输出**。
 
 **Paddle 过审后**，改 `index.html` 与 `zh.html` 各一处 Buy 按钮：
 - 把 `href="#buy"` 换成真实 Checkout 链接；
