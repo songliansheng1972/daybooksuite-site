@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+._*
+
+# 编辑器临时文件
+*.swp
+*~
+.idea/
+.vscode/
+
+# 本地预览/日志
+*.log
