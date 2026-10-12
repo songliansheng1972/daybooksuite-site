@@ -7,12 +7,13 @@ Paddle 审核要求自有域名站，且**必须含 Terms of Service 与 Privacy
 
 | 文件 | 用途 |
 |---|---|
-| `index.html` | 落地页（英文·是什么 / 三件包 / 定价 $9.9 / 联系） |
+| `index.html` | 落地页（英文·是什么 / 三件包 / 定价 $10.99 / 规模 5,467 行 / 联系） |
 | `zh.html` | 落地页中文版（语言切在导航「中文 / English」） |
 | `terms.html` | 服务条款（含 Paddle 为 Merchant of Record 的说明） |
 | `privacy.html` | 隐私政策（本地纯文本·无遥测；购买数据由 Paddle 收集） |
 | `refund.html` | 退款政策（14 天） |
 | `thank-you.html` | **付款后落地页**（Paddle `successUrl` 指向此页；取件指引 + 许可范围 + 更新与退款；`noindex`） |
+| `404.html` | 自定义 404 页（不存在路径 → **404**，不再回退首页） |
 | `style.css` | 共用样式（纸感/账页风格） |
 
 ## 本地预览
@@ -23,17 +24,24 @@ python3 -m http.server 8080
 # 浏览器打开 http://localhost:8080
 ```
 
-## 上线（二选一）
+## 上线（部署方式：Cloudflare Pages 连本仓 · Git 集成）
 
-**甲 · Cloudflare Pages（推荐——与域名/邮箱同一后台）**
-1. Cloudflare 控制台 → Workers & Pages → Create → Pages → Upload assets
-2. 上传本目录全部文件 → 得到 `xxx.pages.dev`
-3. Pages → Custom domains → 绑 `daybooksuite.com`（自动 HTTPS）
+本目录**已是 Git 仓并已推远端**：
 
-**乙 · GitHub Pages**
-1. 把本目录内容推到某仓（如 `daybook-suite/site`）
-2. 仓 Settings → Pages → Source 选该目录
-3. 自定义域名填 `daybooksuite.com` + DNS 加 CNAME
+- 仓：`https://github.com/songliansheng1972/daybooksuite-site`
+- **以后改法**：改本地 → `git commit` → `git push` ⇒ Cloudflare 自动构建上线（**不再手工拖拽**）。
+
+**首次在 Cloudflare 侧连仓（一次性）**
+
+1. 自己敲网址登录 `dash.cloudflare.com` → **Workers & Pages → Create → Pages → Connect to Git**。
+2. 授权 GitHub，选仓 `songliansheng1972/daybooksuite-site`，**生产分支 `main`**。
+3. **构建设置**：Framework preset = **None**；Build command **留空**；Build output directory = **`/`**。
+4. **Save and Deploy** → 得 `xxx.pages.dev` → 先直访验证各页（含 `/thank-you.html` 与 404）。
+5. **Custom domains** → 加 `daybooksuite.com`（若提示记录冲突，按提示修正）。
+6. ⚠ **不要**开启 Single Page Application（SPA）回退——保持不存在路径返回 404。
+
+> 早前线上是「Upload assets」手工上传的旧项目（改了本地不会自动更新）。改建 Git 集成后**弃用旧项目**。
+> 备用：GitHub Pages（仓 Settings → Pages → Source 选 `main` 根目录）。二者**均无需备案**。
 
 ## 待办（发布前）
 
