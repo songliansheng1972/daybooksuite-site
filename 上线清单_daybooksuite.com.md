@@ -9,7 +9,7 @@
 
 | # | 硬闸 | 怎么判（可核） | 现状 |
 |---|---|---|---|
-| **H0** | **部署通道**已通（改完能一键上线·非手工重传） | 见 §一b | ⛔ **未通（当前手工上传）** |
+| **H0** | **部署通道**已通（改完能一键上线·非手工重传） | 见 §一b | 🔵 **仓已建·待 CF 连仓** |
 | **H1** | Buy 按钮已换**真链** | `grep` 无 `data-placeholder`（见 §四） | ⛔ 未过（占位中） |
 | **H2** | Paddle `successUrl` 指向本站付款后页 | Paddle 后台已填（见 §三） | ⛔ 未设 |
 | **H3** | Paddle 交付方式 = **Download**（发下载邮件·零后端） | Paddle 后台 | ⛔ 未设 |
@@ -36,18 +36,28 @@
 **⇒ 病根：改了本地 ≠ 上线。** 上次上传之后，本地所有改动（定价 $10.99、起居注正名、规模段）**都没上站**。
 **⇒ 两个必须堵的洞**：①**`thank-you.html` 线上缺失**（Paddle `successUrl` 会落空）；②**SPA 回退**（404 变 200）。
 
+**处置（2026-10-12 20:00 · 老宋裁甲）**：站点已**推 GitHub 仓** `songliansheng1972/daybooksuite-site`（main·10 文件）；改建 **Cloudflare Pages 连本仓**后——
+- 两洞**自动得修**：`thank-you.html` 随仓部署（洞①消）；新项目**默认无 SPA 回退**，并新增 `404.html`（洞②消）。
+- 以后 **`git push` 即上线**，不再手工重传。
+
 ---
 
-## 一 · Cloudflare Pages 部署（推荐 · 与域名同一后台）
+## 一 · Cloudflare Pages 连本仓（Git 集成 · 甲方案 · 一次性设置）
+
+> 仓已建好：`https://github.com/songliansheng1972/daybooksuite-site`（main）。以下在 Cloudflare 侧做，**只做一次**。
 
 1. **自己敲网址**登录 `dash.cloudflare.com`（**不点邮件里的链接**）。
-2. 左侧 **Workers & Pages → Create → Pages → Upload assets**。
-3. 上传 `~/Desktop/daybooksuite-site/` 下**全部网页文件**（`index.html`／`zh.html`／`terms.html`／`privacy.html`／`refund.html`／`thank-you.html`／`style.css`）。
-   - ⚠ **不要上传 `.git` 目录**（本地上传时只选那 7 个文件即可）。
-4. 得到 `xxx.pages.dev` 临时地址 —— **先直访验证**：首页、中文页、三政策页、`thank-you.html` 都能打开。
-5. **Pages → Custom domains → 绑 `daybooksuite.com`**（自动签发 HTTPS）。
+2. 左侧 **Workers & Pages → Create → Pages → Connect to Git**。
+3. 授权 GitHub，选仓 `songliansheng1972/daybooksuite-site`；**生产分支选 `main`**。
+4. **构建设置**：Framework preset = **None**；Build command **留空**；Build output directory = **`/`**。
+5. **Save and Deploy** → 得 `xxx.pages.dev` → **先直访验证**：首页、`/zh`、三政策页、`/thank-you.html`、随便一个不存在路径（应为 **404**）。
+6. **Custom domains → 加 `daybooksuite.com`**：
+   - 域名现绑在**旧项目**（Upload assets 建的）上——按提示**先在旧项目移除该域名**，再在**新项目**加入；如提示记录冲突，按提示修正即可（自动 HTTPS）。
+7. 旧的 Upload 项目**弃用**（可留作回退，或删）。
 
-> 备用：GitHub Pages（README §上线·乙）。用二者之一，**均无需备案**。
+**以后改法**：改本地 → `git commit` → `git push` ⇒ 自动上线。**不再手工拖拽。**
+
+> 备用：GitHub Pages（仓 Settings → Pages → Source 选 `main` 根）。二者**均无需备案**。
 
 ---
 
@@ -55,13 +65,13 @@
 
 > **H0 硬闸**：只要还停在「手工拖拽上传」，每次改完都可能忘传——**这次就是这么漏的**。
 
-- **甲（推荐·一劳永逸）**：站点入 GitHub 仓 → Cloudflare Pages **连该仓** → 以后 `git push` 即自动上线（本地提交历史已在）。
-  - ⚠ 若现有 Pages 项目是用 **Upload assets** 建的，**不能**改成 Git 集成，须**新建一个 Pages 项目**（域名重绑）。
-- **乙（最快·可复用现有项目）**：装 `wrangler` → `wrangler login`（浏览器授权一次）→
-  `wrangler pages deploy ~/Desktop/daybooksuite-site --project-name=<现有项目名>`。
-- **丙（不给凭据·您自己来）**：控制台 → 该项目 → **Create new deployment** → 重新拖入本目录 7 个文件。
+- **✅ 甲（已选定 · 已执行至「仓已建」）**：站点已入 GitHub 仓 → Cloudflare Pages **连该仓** → 以后 `git push` 即自动上线。
+  - 仓：`https://github.com/songliansheng1972/daybooksuite-site`（main · 10 文件）✅ **已推送**
+  - 待办：CF 侧**连仓 + 域名从旧项目迁到新项目**（见 §一）。
+  - 注：旧项目是用 **Upload assets** 建的 ⇒ **不能**改成 Git 集成，**须新建 Pages 项目**（域名重绑）。
+- ~~乙（wrangler 直推）~~ · ~~丙（手工重传）~~：甲已选定，另两案不再执行。
 
-**无论走哪条，本次都要一并修那两处**：①补 `thank-you.html`；②把 SPA 回退改成 404（或只对已知路径回退）。
+**本次两处已随仓备妥**：①`thank-you.html` 已在仓内（部署即在）；②新增 `404.html`（不存在路径 → 404，不再回退首页）。
 
 ---
 
@@ -108,10 +118,10 @@ cd ~/Desktop/daybooksuite-site && grep -n "checkout" thank-you.html
 
 ## 五 · 追溯与回滚（入仓后新增）
 
-- 本目录**已入版本管理**（`git` 基线提交 `cb5e0d2`）。
+- 本目录**已入版本管理并已推远端**：`https://github.com/songliansheng1972/daybooksuite-site`
 - 看改动：`cd ~/Desktop/daybooksuite-site && git log --oneline`
 - 改坏了复原：`git checkout -- <文件名>`
-- **规矩**：每次改动**先提交、后上线**——线上页面永远对应仓内某一个提交，可追溯。
+- **规矩**：每次改动**先提交、再 push**——线上页面永远对应仓内某一个提交，可追溯；Git 集成后 push 即自动上线。
 
 ---
 
