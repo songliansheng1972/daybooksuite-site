@@ -47,12 +47,16 @@
   </div>
 </div>
 
-<h2>Why plain text</h2>
+<h2>Why plain text &mdash; eight things that matter</h2>
 <ul>
-  <li><strong>You own it.</strong> A folder of text files you can read with <span class="mono">cat</span>, archive, diff, and back up anywhere.</li>
-  <li><strong>Runs anywhere.</strong> Zero dependencies. Copy it to any machine and it just works.</li>
-  <li><strong>Append-only.</strong> Nothing is silently rewritten. History stays history.</li>
-  <li><strong>Auditable.</strong> No hidden state, no telemetry, no cloud round-trip.</li>
+  <li><strong>Plain text &mdash; you own it.</strong> Read it with <span class="mono">cat</span>, open it in Notepad, archive, diff, back it up anywhere. Not binary, not a private format &mdash; human- and machine-readable.</li>
+  <li><strong>Zero dependencies.</strong> Python 3 standard library only; never phones home. Copy it to any machine &mdash; Windows, macOS, Linux, a Raspberry Pi, a USB drive &mdash; and it runs.</li>
+  <li><strong>Append-only.</strong> One entry at a time, never rewritten; no hidden state, no telemetry, no cloud round-trip. History stays history &mdash; every entry carries an author ID, auditable and verifiable.</li>
+  <li><strong>Fast.</strong> 365,000 entries index in ~3.7s; appending one to a million takes 0.28s &mdash; and does not grow with the total.</li>
+  <li><strong>Multi-writer safe.</strong> <span class="mono">O_APPEND</span> atomic appends; 20 processes writing one volume with zero interleaving; a 1,000-concurrent test with zero errors.</li>
+  <li><strong>Links are references, not embeddings.</strong> Lose the graph and the text is still intact.</li>
+  <li><strong>Mountable as an agent's long-term memory.</strong> If you can <span class="mono">cat</span> it, it can read it &mdash; onboarded in 30 seconds.</li>
+  <li><strong>Cross-era.</strong> Python 3 + sh + C + Fortran + BASIC (1957&ndash;2026) &mdash; memory that outlives the tools.</li>
 </ul>
 
 <h2>Scale</h2>

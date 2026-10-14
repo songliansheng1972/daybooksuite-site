@@ -47,12 +47,16 @@
   </div>
 </div>
 
-<h2>为什么是纯文本</h2>
+<h2>为什么是纯文本 &mdash; 八件要紧的事</h2>
 <ul>
-  <li><strong>东西是你的。</strong>一文件夹的文本，用 <span class="mono">cat</span> 就能看，随处归档、比对、备份。</li>
-  <li><strong>到处都能跑。</strong>零依赖。拷到任何机器上，直接就跑。</li>
-  <li><strong>Append-only。</strong>没有任何东西被偷偷改写。历史就是历史。</li>
-  <li><strong>可审计。</strong>没有隐藏状态、没有遥测、不绕云端。</li>
+  <li><strong>纯文本 &mdash; 东西是你的。</strong>用 <span class="mono">cat</span> 就能读，记事本打开即看，随处归档、比对、备份。不是二进制，不是私有格式 &mdash; 人机均可读。</li>
+  <li><strong>零依赖。</strong>只用 Python 3 标准库；不联网。拷到任何机器即跑（Windows / macOS / Linux / 树莓派 / 随身硬盘）。</li>
+  <li><strong>只增不改。</strong>一条一记，append-only；没有隐藏状态、没有遥测、不绕云端。写不坏历史，每条必带作者 ID，可审可验可追。</li>
+  <li><strong>快。</strong>36.5 万条全量索引约 3.7 秒；100 万条追一条 0.28 秒，且不随总量增长。</li>
+  <li><strong>多写者安全。</strong><span class="mono">O_APPEND</span> 原子追加；20 进程同写一卷零交错，1000 并发测试零失误。</li>
+  <li><strong>图是引用，不是嵌入。</strong>图丢了，文本不烂。</li>
+  <li><strong>可挂载为智能体的长期记忆。</strong>能 <span class="mono">cat</span> 就能读，30 秒上岗。</li>
+  <li><strong>跨年代。</strong>Python 3 + sh + C + Fortran + BASIC（1957&ndash;2026）&mdash; 记忆比工具活得久。</li>
 </ul>
 
 <h2>规模</h2>
