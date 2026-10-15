@@ -13,7 +13,7 @@
 | **H1** | Buy 按钮已换**真链** | `grep` 无 `data-placeholder`（见 §四） | ⛔ 未过（占位中·候 Paddle 过审） |
 | **H2** | Paddle `successUrl` 指向本站付款后页 | Paddle 后台已填（见 §三） | ⛔ 未设（候 Paddle） |
 | **H3** | Paddle 交付方式 = **Download**（发下载邮件·零后端） | Paddle 后台 | ⛔ 未设（候 Paddle） |
-| **H4** | 域名邮箱 `hi@daybooksuite.com` 已通 | 发一封、收回执 | ⛔ 待 Email Routing |
+| **H4** | 域名邮箱 `hi@daybooksuite.com` 已通 | 发一封、收回执 | 🟡 **MX 已指向 Cloudflare Email Routing**（route1/2/3.mx.cloudflare.net）·**待实发一封**确认落到 sina |
 | **H5** | 正式域名 HTTPS 可访问 | 浏览器直访 `https://daybooksuite.com` | ✅ **线上 = v3.1**（与仓同步·2026-10-15 实测） |
 | **H6** | 三政策页在线可达（Terms / Privacy / Refund） | 逐页打开 | ✅ 线上可达（均 200） |
 | **H7** | 付款后落地页 `thank-you.html` 在线 | 直访 `/thank-you` | ✅ **线上可达（200）** |
