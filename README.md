@@ -7,7 +7,7 @@ Paddle 审核要求自有域名站，且**必须含 Terms of Service 与 Privacy
 
 | 文件 | 用途 |
 |---|---|
-| `index.html` | 落地页（英文·是什么 / 三件包 / 定价 $10.99 / 规模 5,467 行 / 联系） |
+| `index.html` | 落地页（英文·是什么 / 三件包 / 定价 $10.99 / 规模 6,541 行 / 联系） |
 | `zh.html` | 落地页中文版（语言切在导航「中文 / English」） |
 | `terms.html` | 服务条款（含 Paddle 为 Merchant of Record 的说明） |
 | `privacy.html` | 隐私政策（本地纯文本·无遥测；购买数据由 Paddle 收集） |
