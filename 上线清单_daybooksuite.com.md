@@ -9,42 +9,43 @@
 
 | # | 硬闸 | 怎么判（可核） | 现状 |
 |---|---|---|---|
-| **H0** | **部署通道**已通（改完能一键上线·非手工重传） | 见 §一b | 🔵 **仓已建·待 CF 连仓** |
-| **H1** | Buy 按钮已换**真链** | `grep` 无 `data-placeholder`（见 §四） | ⛔ 未过（占位中） |
-| **H2** | Paddle `successUrl` 指向本站付款后页 | Paddle 后台已填（见 §三） | ⛔ 未设 |
-| **H3** | Paddle 交付方式 = **Download**（发下载邮件·零后端） | Paddle 后台 | ⛔ 未设 |
+| **H0** | **部署通道**已通（改完能一键上线·非手工重传） | 见 §一b | ✅ **已通**（2026-10-15 实测：push 后线上自动更新） |
+| **H1** | Buy 按钮已换**真链** | `grep` 无 `data-placeholder`（见 §四） | ⛔ 未过（占位中·候 Paddle 过审） |
+| **H2** | Paddle `successUrl` 指向本站付款后页 | Paddle 后台已填（见 §三） | ⛔ 未设（候 Paddle） |
+| **H3** | Paddle 交付方式 = **Download**（发下载邮件·零后端） | Paddle 后台 | ⛔ 未设（候 Paddle） |
 | **H4** | 域名邮箱 `hi@daybooksuite.com` 已通 | 发一封、收回执 | ⛔ 待 Email Routing |
-| **H5** | 正式域名 HTTPS 可访问 | 浏览器直访 `https://daybooksuite.com` | ⚠️ **已上线·但线上是旧版** |
+| **H5** | 正式域名 HTTPS 可访问 | 浏览器直访 `https://daybooksuite.com` | ✅ **线上 = v3.1**（与仓同步·2026-10-15 实测） |
 | **H6** | 三政策页在线可达（Terms / Privacy / Refund） | 逐页打开 | ✅ 线上可达（均 200） |
-| **H7** | 付款后落地页 `thank-you.html` 在线 | 直访 `/thank-you.html` | ⛔ **线上缺失**（被回退掩盖·见 §〇b） |
+| **H7** | 付款后落地页 `thank-you.html` 在线 | 直访 `/thank-you` | ✅ **线上可达（200）** |
 
-> **H1 与 H2 是同一件事的两面**：Buy 真链点了要能跳 Paddle 结账，付完要能回到本站 `thank-you.html`。**两条都过，才算付款闭环通。**
+> **H1 与 H2 是同一件事的两面**：Buy 真链点了要能跳 Paddle 结账，付完要能回到本站 `thank-you`。**两条都过，才算付款闭环通。**
 
 ---
 
-## 〇b · 线上现状诊断（2026-10-12 19:52 亲核）
+## 〇b · 线上现状诊断（**2026-10-15 15:36 复测·前诊已消解**）
 
-| 项 | 实测 |
+| 项 | 实测（2026-10-15 15:36） |
 |---|---|
-| 托管 | **Cloudflare**（`server: cloudflare`） |
-| 首页 `/` | **旧版**：`$9.9` ×2；卡片写 `(账 + 录)` |
-| 中文页 `/zh` | **旧版**：卡片写 `账与录（基座）` |
-| `/terms`、`/refund` | **旧版**：`US$9.9` |
-| `/thank-you.html` | ⛔ **不存在**（返回的是首页） |
-| 任意不存在路径（如 `/abc`） | ⚠️ **200 + 首页**（SPA 回退·本该 404） |
+| 托管 | **Cloudflare Pages**（`server: cloudflare`·NS `angelina/cartman.ns.cloudflare.com`） |
+| 首页 `/` | ✅ **v3.1**（规模 6,541 行·daybook 1,653 · mcp 2,962 · orch 1,926） |
+| 中文页 `/zh` | ✅ **v3.1** |
+| `/terms`、`/privacy`、`/refund` | ✅ 均 **200** |
+| `/thank-you` | ✅ **200**（前诊「线上缺失」已消） |
+| 任意不存在路径（如 `/__nope_xyz`） | ✅ **404**（**前诊 SPA 回退已消**） |
+| 部署通道 | ✅ **push 即自动上线**（2026-10-15 推 `6289c41` 后线上自动翻 v3.1） |
 
-**⇒ 病根：改了本地 ≠ 上线。** 上次上传之后，本地所有改动（定价 $10.99、起居注正名、规模段）**都没上站**。
-**⇒ 两个必须堵的洞**：①**`thank-you.html` 线上缺失**（Paddle `successUrl` 会落空）；②**SPA 回退**（404 变 200）。
+> **前诊（2026-10-12）的两个洞——`thank-you` 缺失、SPA 回退——均已消除**；线上已与仓同步至 v3.1。
+> 仍候 **Paddle 过审** 才能放行 H1–H3（付款闭环），与站点托管无关。
 
-**处置（2026-10-12 20:00 · 老宋裁甲）**：站点已**推 GitHub 仓** `songliansheng1972/daybooksuite-site`（main·10 文件）；改建 **Cloudflare Pages 连本仓**后——
-- 两洞**自动得修**：`thank-you.html` 随仓部署（洞①消）；新项目**默认无 SPA 回退**，并新增 `404.html`（洞②消）。
-- 以后 **`git push` 即上线**，不再手工重传。
+**处置（2026-10-12 20:00 · 老宋裁甲 · ✅ 2026-10-15 已落实）**：站点已**推 GitHub 仓** `songliansheng1972/daybooksuite-site`（main）；已建 **Cloudflare Pages 连本仓**——
+- 两洞**已修**：`thank-you.html` 随仓部署在线（洞①消）；**无 SPA 回退**，`404.html` 生效（洞②消）。**均已 2026-10-15 15:36 实测确认**。
+- 以后 **`git push` 即上线**，不再手工重传（**已实测：推 `6289c41` 后线上自动翻 v3.1**）。
 
 ---
 
-## 一 · Cloudflare Pages 连本仓（Git 集成 · 甲方案 · 一次性设置）
+## 一 · Cloudflare Pages 连本仓（Git 集成 · 甲方案）—— ✅ **已完成**（2026-10-15 实测生效）
 
-> 仓已建好：`https://github.com/songliansheng1972/daybooksuite-site`（main）。以下在 Cloudflare 侧做，**只做一次**。
+> 以下为**一次性设置步骤留存**（已做完，存档备查）。仓：`https://github.com/songliansheng1972/daybooksuite-site`（main）。
 
 1. **自己敲网址**登录 `dash.cloudflare.com`（**不点邮件里的链接**）。
 2. 左侧 **Workers & Pages → Create → Pages → Connect to Git**。
@@ -65,10 +66,10 @@
 
 > **H0 硬闸**：只要还停在「手工拖拽上传」，每次改完都可能忘传——**这次就是这么漏的**。
 
-- **✅ 甲（已选定 · 已执行至「仓已建」）**：站点已入 GitHub 仓 → Cloudflare Pages **连该仓** → 以后 `git push` 即自动上线。
-  - 仓：`https://github.com/songliansheng1972/daybooksuite-site`（main · 10 文件）✅ **已推送**
-  - 待办：CF 侧**连仓 + 域名从旧项目迁到新项目**（见 §一）。
-  - 注：旧项目是用 **Upload assets** 建的 ⇒ **不能**改成 Git 集成，**须新建 Pages 项目**（域名重绑）。
+- **✅ 甲（已选定 · ✅ 已落实）**：站点已入 GitHub 仓 → Cloudflare Pages **已连该仓** → `git push` 即自动上线。
+  - 仓：`https://github.com/songliansheng1972/daybooksuite-site`（main）✅ **已推送**
+  - ✅ **已完成**：CF 侧**连仓 + 域名指向**（2026-10-15 实测：推 `6289c41` 后线上自动翻 v3.1）。
+  - 注：旧 Upload 项目**弃用**（不能改 Git 集成·须新建 Pages 项目·域名重绑——**已办**）。
 - ~~乙（wrangler 直推）~~ · ~~丙（手工重传）~~：甲已选定，另两案不再执行。
 
 **本次两处已随仓备妥**：①`thank-you.html` 已在仓内（部署即在）；②新增 `404.html`（不存在路径 → 404，不再回退首页）。
