@@ -20,23 +20,10 @@
   </nav>
 </header>
 
-<h1>Thank you — your download is below.</h1>
+<h1>Thank you for your interest in Daybook Suite.</h1>
 <p class="lede">
-  Your payment went through. A receipt and invoice from <strong>Paddle</strong> (our Merchant of Record)
-  is on its way to the email address you used at checkout — check spam if it does not arrive within a few minutes.
+  Everything is currently <strong>free</strong> — no account, no payment. Get the code below and run it.
 </p>
-
-<p id="orderline" class="small" hidden>Order reference: <strong id="orderref"></strong></p>
-
-<script>
-(function () {
-  var m = location.search.match(/[?&](?:checkout|order)=([^&]+)/);
-  if (m) {
-    document.getElementById('orderref').textContent = decodeURIComponent(m[1]);
-    document.getElementById('orderline').hidden = false;
-  }
-})();
-</script>
 
 <h2>1. Get the code</h2>
 <p>Two ways — they give you exactly the same thing:</p>
@@ -58,15 +45,13 @@
 
 <p class="small">
   <strong>Straight talk:</strong> the source is open (MIT / AGPL-3.0) and free for anyone to fetch.
-  What your $10.99 pays for is the one-click bundle, future updates, and keeping this work going.
-  Thank you for that.
+  There is no paid product right now. A paid one-click bundle may come later — not now.
 </p>
 
 <h2>2. What you may do with it</h2>
 <ul>
   <li><strong>daybook</strong> and <strong>daybook-mcp</strong> — MIT. Use them freely under the MIT terms.</li>
   <li><strong>daybook-orch</strong> — AGPL-3.0-or-later for open-source use.</li>
-  <li>Your purchase covers <strong>personal, non-commercial use of the full suite</strong>.</li>
   <li><strong>Commercial use of daybook-orch</strong> (closed-source embedding, hosted SaaS without open-sourcing)
       needs a separate commercial license — write to
       <a href="mailto:hi@daybooksuite.com">hi@daybooksuite.com</a>.</li>
@@ -75,30 +60,29 @@
 <h2>3. Getting updates</h2>
 <p>
   Watch or star the repository to be notified of new tags. Nothing phones home — no telemetry, no license check,
-  no activation. If you would rather we email you when a new version lands, just reply to your Paddle receipt.
+  no activation, no email signup.
 </p>
 
 <h2>4. If something is wrong</h2>
 <p>
-  Refunds within <strong>14 days</strong>, no arguing — see the
-  <a href="/refund">Refund Policy</a>. Email
-  <a href="mailto:hi@daybooksuite.com">hi@daybooksuite.com</a> with the address you used at checkout
-  and we will sort it out through Paddle.
+  There is no paid product, so there is nothing to refund — see the
+  <a href="/refund">Refund Policy</a>. If something does not work, email
+  <a href="mailto:hi@daybooksuite.com">hi@daybooksuite.com</a> and we will take a look.
 </p>
 
 <hr>
 
 <h2>中文说明</h2>
 <p>
-  付款已完成，<strong>Paddle</strong> 会把收据与发票发到你结账时填的邮箱（数分钟未到请查垃圾邮件）。
-  取件有两条路，内容完全相同：<span class="mono">git clone</span> 仓库（推荐，永远最新），
-  或到 <a href="https://github.com/songliansheng1972/daybook-suite/releases">Releases</a> 下 zip。
+  当前<strong>全部免费</strong>：无需账号、无需付款。取件有两条路，内容完全相同：
+  <span class="mono">git clone</span> 仓库（推荐，永远最新），
+  或到 <a href="https://github.com/songliansheng1972/daybook-suite/releases">Releases</a> 下 zip；
+  也可以 <span class="mono">pip install daybook-suite daybook-mcp daybook-orch</span>。
 </p>
 <p class="small">
-  源码本就公开免费（MIT / AGPL-3.0），$10.99 买的是整装包、后续更新，以及让这件活儿继续做下去。
-  本次购买涵盖<strong>整三件的个人非商用使用</strong>；<strong>司南（daybook-orch）的商用</strong>需另购商业许可，
-  邮件 <a href="mailto:hi@daybooksuite.com">hi@daybooksuite.com</a>。14 天内可退款，见
-  <a href="/refund">退款政策</a>。有问题：<a href="mailto:hi@daybooksuite.com">hi@daybooksuite.com</a>。
+  源码公开（MIT / AGPL-3.0），人人可免费自取。当前无付费产品，故无需退款；将来<strong>可能</strong>出一键包，但不是现在。
+  <strong>司南（daybook-orch）的商用</strong>需另购商业许可，
+  邮件 <a href="mailto:hi@daybooksuite.com">hi@daybooksuite.com</a>。有问题也可发这个邮箱。
 </p>
 
 <footer class="site">
