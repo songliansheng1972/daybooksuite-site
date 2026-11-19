@@ -1,13 +1,13 @@
 # daybooksuite.com — 落地页与政策三页
 
-Paddle 审核要求自有域名站，且**必须含 Terms of Service 与 Privacy Policy**（本目录已备**退款政策**）。
-本目录是**静态站**，无依赖、无构建。
+本站早期为 Paddle 审核而建（要求自有域名 + Terms/Privacy），该审核随 v4.x 免费发行**已废止**；
+三政策页仍保留并在线（合规与透明度需要）。本目录是**静态站**，无依赖、无构建。
 
 ## 文件
 
 | 文件 | 用途 |
 |---|---|
-| `index.html` | 落地页（英文·是什么 / 三件包 / 定价 $10.99 / 规模 6,541 行 / 联系） |
+| `index.html` | 落地页（英文·是什么 / 三件包 / 免费直下 / 规模 17,168 行 / 联系） |
 | `zh.html` | 落地页中文版（语言切在导航「中文 / English」） |
 | `terms.html` | 服务条款（含 Paddle 为 Merchant of Record 的说明） |
 | `privacy.html` | 隐私政策（本地纯文本·无遥测；购买数据由 Paddle 收集） |
@@ -43,13 +43,16 @@ python3 -m http.server 8080
 > 早前线上是「Upload assets」手工上传的旧项目（改了本地不会自动更新）。改建 Git 集成后**弃用旧项目**。
 > 备用：GitHub Pages（仓 Settings → Pages → Source 选 `main` 根目录）。二者**均无需备案**。
 
-## 待办（发布前）
+## 现状（2026-11-19 · v4.0.7）
 
-> 逐步操作与**放行硬闸**见同目录《`上线清单_daybooksuite.com.md`》（执行页）。
+- **免费直下**：站上四条链接直指 GitHub Releases `v4.0.7` 的四个 zip（`daybook` / `daybook-mcp` / `daybook-orch` / `daybook-suite`），无账号、无支付；亦可 `pip install` 三个发行名。
+- **无付费流程**：v4.x 起改为免费发行，站内**没有** Buy 按钮、没有 Paddle 结账、`thank-you.html` 只留「取件指引」。
+- **待确认**：域名邮箱 `hi@daybooksuite.com`（Cloudflare Email Routing → sina）实发一封是否落地。
 
-- [ ] `index.html` / `zh.html` 的 `Buy` 按钮：Paddle 审核通过后，换成真实 Checkout 链接（现为占位 `#buy`）
-- [ ] **Paddle 后台设 `successUrl`** = `https://daybooksuite.com/thank-you.html?checkout={checkout_id}`（或 Checkout settings 里的 post-checkout 跳转）；不设则停在 Paddle 自带成功页
-- [ ] Paddle 商品交付方式选 **Download**（发含下载链接的邮件），零后端
-- [ ] 域名邮箱 `hi@daybooksuite.com`：Cloudflare Email Routing 转发到 sina 邮箱后即生效
-- [ ] 备案：用 Cloudflare Pages / GitHub Pages 托管，**无需备案**
-- [ ] 定价：现为 **US$10.99 一次性**（个人非商业；≥$10 适配 Paddle 自助费率）；如改价，**官网 8 处**同改：`index.html`×2（价格牌＋按钮）／`zh.html`×2／`terms.html` §4／`refund.html` §1／`thank-you.html`×2；另**源码仓 10 处**（根 `README.md` 中英×2 ＋ `src/LICENSING.md`×2 → 重打包同步三包）——共 **18 处同源**
+## 已废止（历史条目，勿再照此判红）
+
+> 以下为 **v3.x 付费版**时期的待办，v4.x 免费发行后**整体不再适用**，仅存档备查。
+
+- ~~`index.html` / `zh.html` 的 `Buy` 按钮：Paddle 审核通过后换成真实 Checkout 链接（占位 `#buy`）~~ —— 按钮已随免费化移除。
+- ~~Paddle 后台设 `successUrl` / 交付方式选 Download~~ —— 无付费流程，无需设。
+- ~~定价 US$10.99 一次性 · 官网 8 处同源~~ —— 现价为 **$0 免费**，18 处同源的口径作废。
